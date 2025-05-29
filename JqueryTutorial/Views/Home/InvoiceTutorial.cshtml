@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body style="font-family:Arial">
+    Reference
+    <br />
+    <input id="InvoiceRef" type="text" name="Ref" />
+    <br />
+    Name
+    <br />
+    <input id="InvoiceName" type="text" name="Name" />
+    <br />
+    Address
+    <br />
+    <input id="InvoiceAddress" type="text" name="Address" />
+
+    <br />
+    <br />
+
+    <table class="table table-striped table-hover table-bordered" id="InvoiceTable" style="width:100%">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" id="InvoiceId">
+                    ID
+                </th>
+                <th scope="col">
+                    Product Name
+                </th>
+                <th scope="col">
+                    Quantity
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col" id="InvoiceSubPrice">
+                    SubTotal Price
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align:right; font-weight:bold;">
+                    Total:
+                </td>
+                <td id="TotalPrice">0</td>
+            </tr>
+        </tfoot>
+
+
+    </table>
+    
+    <input id="InvoiceProductName" type="text" name="Product Name" />
+    <input id="InvoiceQuantity" type="text" name="Quantity" />
+    <input id="InvoicePrice" type="text" name="Price" />
+
+    <button id="AddRow"> Add Order </button>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () { 
+           
+            $('#AddRow').on('click', function () {
+                var id = $('#InvoiceTable tbody tr').length + 1;
+                var productName = $('#InvoiceProductName').val();
+                var quantity = $('#InvoiceQuantity').val();
+                var price = $('#InvoicePrice').val();
+                var subPrice = quantity * price;
+                $('#InvoiceTable tbody').append(
+                    `<tr id="your-order">
+                                <td>${id}</td>
+                                <td>${productName}</td>
+                                <td>${quantity}</td>
+                                <td>${price}</td>
+                                <td>${subPrice}</td>
+                                <td>
+                                    <button class="deletebtn btn-hover" id="DeleteRow">Delete</button>
+                                </td>
+                            </tr>`
+                );
+               
+            });
+            
+            $('#InvoiceTable').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+            $('#InvoiceTable').on('click', '.deletebtn', function () {
+                $(this).closest('tr').remove();
+               
+            });
+        });
+    </script>
+</body>
+</html>
